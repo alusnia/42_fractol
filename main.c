@@ -6,11 +6,39 @@
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:33:40 by alusnia           #+#    #+#             */
-/*   Updated: 2025/11/13 11:51:39 by alusnia          ###   ########.fr       */
+/*   Updated: 2025/11/19 20:25:45 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	modify_n_iter(t_data *data, int keycode)
+{
+	char	*str;
+	int		n;
+
+	ft_printf("Recent number of calculations: %d\n", data->fractal->n_iter);
+	if (keycode == 61)
+	{
+		ft_printf("By how many you want to increase this value?\n");
+		str = get_next_line(0);
+	}
+	else
+	{
+		ft_printf("By how many you want to decrease this value?\n");
+		str = get_next_line(0);
+	}
+	n = ft_atoi(str);
+	free(str);
+	if (keycode == 61 && (unsigned int)(data->fractal->n_iter + n) <= INT_MAX)
+		data->fractal->n_iter += n;
+	else if (keycode == 45 && data->fractal->n_iter - n >= 10)
+		data->fractal->n_iter -= n;
+	else
+		ft_printf("Wrong value\n");
+	ft_printf("Recent number of calculations: %d\n", data->fractal->n_iter);
+	fill_image(data, data->fractal->f);
+}
 
 void	select_fractal(t_data *data)
 {

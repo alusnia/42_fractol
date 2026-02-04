@@ -6,7 +6,7 @@
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:45:46 by alusnia           #+#    #+#             */
-/*   Updated: 2025/10/09 13:10:34 by alusnia          ###   ########.fr       */
+/*   Updated: 2025/11/27 10:56:38 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ static char	**free_arr(char **ptr)
 		free(ptr[i++]);
 	free(ptr);
 	return (NULL);
+}
+
+static char	**make_split(char **ptr, char *start, size_t *i, ssize_t j)
+{
+	if (start[j] != 0 && (j == 0 || start[j - 1] == 0))
+	{
+		ptr[*i - 1] = ft_strdup(start + j);
+		if (!ptr[*i - 1])
+			return (free_arr(ptr));
+		(*i)--;
+	}
+	return (ptr);
 }
 
 static char	**sep_arr(char *s, char c, size_t *k)
@@ -55,26 +67,21 @@ char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	char	*start;
+	char	d[2];
 	size_t	i;
-	size_t	j;
+	ssize_t	j;
 
 	i = 0;
-	start = ft_strtrim(s, &c);
+	d[0] = c;
+	d[1] = '\0';
+	start = ft_strtrim(s, d);
 	j = ft_strlen(start) + 1;
 	ptr = NULL;
 	ptr = sep_arr(start, c, &i);
 	if (i != 0 && ptr)
 	{
-		while (i > 0 && --j >= 0)
-		{
-			if (start[j] != 0 && (j == 0 || start[j - 1] == 0))
-			{
-				ptr[i - 1] = ft_calloc(ft_strlen(start + j) + 1, sizeof(char));
-				if (!ptr[i - 1])
-					return (free_arr(ptr));
-				ptr[i-- - 1] = ft_strdup(start + j);
-			}
-		}
+		while (i > 0 && --j >= 0 && ptr)
+			ptr = make_split(ptr, start, &i, j);
 	}
 	free(start);
 	return (ptr);

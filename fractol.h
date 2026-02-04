@@ -6,7 +6,7 @@
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 14:39:07 by alusnia           #+#    #+#             */
-/*   Updated: 2025/11/13 11:54:18 by alusnia          ###   ########.fr       */
+/*   Updated: 2026/02/03 20:14:23 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define FRACTOL_H
 # define WIDTH 600
 # define HEIGHT 600
-# include "libft/ft_printf.h"
-# include "gnl/get_next_line.h"
+# include "libft/libft.h"
 # include "minilibx-linux/mlx_int.h"
 # include "minilibx-linux/mlx.h"
 # include <math.h>
@@ -49,6 +48,7 @@ typedef struct s_data
 }	t_data;
 
 //main--------------------------------------------------------------------------
+void		modify_n_iter(t_data *data, int keycode);
 void		select_fractal(t_data *data);
 //manage_program----------------------------------------------------------------
 int			kill_program(t_data *data);

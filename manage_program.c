@@ -6,7 +6,7 @@
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 08:37:09 by alusnia           #+#    #+#             */
-/*   Updated: 2025/11/13 11:51:37 by alusnia          ###   ########.fr       */
+/*   Updated: 2025/11/14 06:45:30 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	manage_kpress(int keycode, t_data *data)
 			data->psycho_color = 1;
 		move_image(data, keycode);
 	}
+	else if (keycode == 45 || keycode == 61)
+		modify_n_iter(data, keycode);
 	else if (keycode == 65307)
 	{
 		kill_program(data);

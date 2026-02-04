@@ -6,33 +6,29 @@
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:10:33 by alusnia           #+#    #+#             */
-/*   Updated: 2025/11/12 09:36:50 by alusnia          ###   ########.fr       */
+/*   Updated: 2025/10/29 15:45:13 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	rec_arg(const char *str, va_list p)
+static int	rec_arg(char c, va_list p)
 {
-	if (*str == 'c')
-		return (ft_putchar_fd(va_arg(p, int), 1));
-	else if (*str == 's')
+	if (c == 'c')
+		return (ft_putchar_fd(va_arg(p, int), 1), 1);
+	else if (c == 's')
 		return (ft_putstr_fd(va_arg(p, char *), 1));
-	else if (*str == 'p')
+	else if (c == 'p')
 		return (ft_putptr_fd(va_arg(p, void *), 1));
-	else if (*str == 'd' || *str == 'i')
+	else if (c == 'd' || c == 'i')
 		return (ft_putnbr_fd(va_arg(p, int), 1));
-	else if (*str == 'u')
+	else if (c == 'u')
 		return (ft_putunbr_fd(va_arg(p, unsigned int), 1));
-	else if (*str == 'x')
+	else if (c == 'x')
 		return (ft_puthex_fd(va_arg(p, unsigned int), 1, 0));
-	else if (*str == 'X')
+	else if (c == 'X')
 		return (ft_puthex_fd(va_arg(p, unsigned int), 1, 1));
-	else if (*str == 'l' && str[1] == 'f')
-		return (ft_putflt_fd(va_arg(p, double), 1));
-	else if (*str == 'f')
-		return (ft_putflt_fd(va_arg(p, double), 1));
-	else if (*str == '%')
+	else if (c == '%')
 		return (ft_putchar_fd('%', 1), 1);
 	return (0);
 }
@@ -49,9 +45,7 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%' && str[1])
 		{
 			str++;
-			count += rec_arg(str, p);
-			if (*str == 'l' && str[1] == 'f')
-				str++;
+			count += rec_arg(*str, p);
 		}
 		else
 		{
