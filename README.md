@@ -14,9 +14,9 @@
   1. Run the executable: ./fractol
   2. Follow the on-screen instructions:The program will guide you through the setup process, asking for:
 
-     Fractal type (Mandelbrot, Julia, etc.)
-     Max iterations (quality/depth)
-     Specific coordinates (for Julia sets)
+     1. Fractal type (Mandelbrot, Julia, etc.)
+     2. Max iterations (quality/depth)
+     3. Specific coordinates (for Julia sets)
      
 🎮 ControlsOnce the graphical window is open, use the following controls to navigate the fractal:
 
