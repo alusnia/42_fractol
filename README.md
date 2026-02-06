@@ -18,6 +18,7 @@
      -Specific coordinates (for Julia sets)
      
 🎮 ControlsOnce the graphical window is open, use the following controls to navigate the fractal:
+
     Scroll Wheel       - Zoom In / Zoom Out (at cursor position)
     Arrow Keys         - Move the view (Pan)
     [ G ]              - Color Shift Mode (Change color palette)
