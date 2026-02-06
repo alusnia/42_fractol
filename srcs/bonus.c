@@ -1,59 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:02:05 by alusnia           #+#    #+#             */
-/*   Updated: 2025/11/13 11:51:37 by alusnia          ###   ########.fr       */
+/*   Created: 2025/11/13 10:39:44 by alusnia           #+#    #+#             */
+/*   Updated: 2026/02/06 15:49:03 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	start_mandelbrot(t_data *data)
+void	start_bonus(t_data *data)
 {
 	new_window(data);
 	data->fractal->frame = malloc(2 * sizeof(double));
-	if (!data->fractal->frame)
+	if (!(data->fractal->frame))
 		kill_program(data);
 	data->fractal->frame[0] = -2.0f;
 	data->fractal->frame[1] = -1.5f;
-	data->fractal->f = man_alg;
+	data->fractal->f = bon_alg;
 	fill_image(data, data->fractal->f);
 	mlx_loop(data->xvar);
 }
 
-void	get_mandelbrot_param(t_data *data)
+void	get_bonus_param(t_data *data)
 {
 	char	*temp;
 
 	data->fractal->n_iter = 0;
-	while (data->fractal->n_iter <= 0)
+	while (data->fractal->n_iter < 10)
 	{
 		ft_printf("Enter number of calculations requiered for each pixel ");
 		ft_printf("More = More detailed and slower\n");
 		temp = get_next_line(0);
 		data->fractal->n_iter = ft_atoi(temp);
-		if (data->fractal->n_iter <= 0)
-			ft_printf("Wrong value. Value should be > 0\n");
+		if (data->fractal->n_iter < 10)
+			ft_printf("Wrong value. Value should be >= 10\n");
 		free(temp);
 	}
-	start_mandelbrot(data);
+	start_bonus(data);
 }
 
-void	calculate_esc(double c_real, double c_imag,
-		double *z_real, double *z_imag)
+void	calculate_esc_bonus(double c_real, double c_imag,
+				double *z_real, double *z_imag)
 {
 	double	temp_real;
 
 	temp_real = (*z_real * *z_real) - (*z_imag * *z_imag) + c_real;
-	*z_imag = (2 * *z_real * *z_imag) + c_imag;
+	*z_imag = -fabs(2 * *z_real * *z_imag) + c_imag;
 	*z_real = temp_real;
 }
 
-double	man_alg(t_data *data, int x, int y)
+double	bon_alg(t_data *data, int x, int y)
 {
 	double	c_real;
 	double	c_imag;
@@ -69,7 +69,7 @@ double	man_alg(t_data *data, int x, int y)
 	z_real = 0;
 	z_imag = 0;
 	while (n++ < data->fractal->n_iter && z_real + z_imag < 2)
-		calculate_esc(c_real, c_imag, &z_real, &z_imag);
+		calculate_esc_bonus(c_real, c_imag, &z_real, &z_imag);
 	if (n == data->fractal->n_iter)
 		return (0);
 	z_real = (log(log(z_imag + z_real))) / log(2);

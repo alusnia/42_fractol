@@ -6,7 +6,7 @@
 /*   By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 14:06:56 by alusnia           #+#    #+#             */
-/*   Updated: 2025/11/13 11:51:36 by alusnia          ###   ########.fr       */
+/*   Updated: 2026/02/06 15:48:40 by alusnia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	start_julia(t_data *data)
 	char	*temp;
 
 	data->fractal->n_iter = 0;
-	while (data->fractal->n_iter <= 0)
+	while (data->fractal->n_iter < 10)
 	{
 		ft_printf("Enter number of calculations requiered for each pixel ");
 		ft_printf("More = More detailed and slower\n");
 		temp = get_next_line(0);
 		data->fractal->n_iter = ft_atoi(temp);
-		if (data->fractal->n_iter <= 0)
-			ft_printf("Wrong value. Value should be > 0\n");
+		if (data->fractal->n_iter < 10)
+			ft_printf("Wrong value. Value should be >= 10\n");
 		free(temp);
 	}
 	new_window(data);
