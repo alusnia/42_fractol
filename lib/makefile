@@ -6,7 +6,7 @@
 #    By: alusnia <alusnia@student.42Warsaw.pl>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/05 19:16:03 by alusnia           #+#    #+#              #
-#    Updated: 2026/02/05 21:52:22 by alusnia          ###   ########.fr        #
+#    Updated: 2026/02/16 12:23:37 by alusnia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,13 +43,13 @@ all: $(NAME)
 $(NAME): $(BASE) $(OBJS)
 	@echo $(SEP)
 	@echo "Building $(NAME)..."
-	cp $(BASE) $(NAME)
-	ar rcs $(NAME) $(OBJS)
-	@echo "Done!"
+	@cp $(BASE) $(NAME)
+	@ar rcs $(NAME) $(OBJS)
+	@echo $(NAME): "Done!"
 	@echo $(SEP)
 
 $(BASE): | $(BASE_DIR)
-	$(MAKE) -C $(BASE_DIR)
+	@$(MAKE) -C $(BASE_DIR)
 
 $(BASE_DIR):
 	@echo $(SEP)
@@ -74,7 +74,7 @@ $(GNL_DIR):
 	@git clone $(GNL_URL) $(GNL_DIR)
 
 $(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)
 
 clean:
 	@rm -rf $(OBJS_DIR)

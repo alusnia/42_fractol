@@ -35,13 +35,14 @@ SEP			= "\n------------------------------------------------------------\n"
 all: $(NAME)
 
 $(NAME): $(LIB) $(MLX_LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB) $(MLX_LIB) $(MLXFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB) $(MLX_LIB) $(MLXFLAGS) -o $(NAME)
+	@echo "$(NAME): Done!"
 
 $(LIB):
-	$(MAKE) -C $(LIB_DIR)
+	@$(MAKE) -C $(LIB_DIR)
 
 $(MLX_LIB): | $(MLX_DIR)
-	$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C $(MLX_DIR)
 
 $(MLX_DIR):
 	@echo $(SEP)
@@ -52,28 +53,28 @@ $(MLX_DIR):
 	@chmod +x $(MLX_DIR)/configure
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCS) | $(OBJS_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)
 
 clean:
-	rm -rf $(OBJS_DIR)
-	$(MAKE) -C $(MLX_DIR) clean
-	$(MAKE) -C $(LIB_DIR) clean
+	@rm -rf $(OBJS_DIR)
+	@$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(LIB_DIR) clean
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(MLX_DIR)/$(MLX_LIB)
-	$(MAKE) -C $(LIB_DIR) fclean
+	@rm -f $(NAME)
+	@rm -f $(MLX_DIR)/$(MLX_LIB)
+	@$(MAKE) -C $(LIB_DIR) fclean
 
-re: fclean all
+re: fclean del_lib all
 
 del_lib:
 	@echo $(SEP)
 	@echo "Deleting library libftplus..."
 	@echo $(SEP)
-	$(MAKE) -C $(LIB_DIR) del_lib
+	@$(MAKE) -C $(LIB_DIR) del_lib
 	@echo $(SEP)
 	@echo "Deleting library minilibx..."
 	@echo $(SEP)
